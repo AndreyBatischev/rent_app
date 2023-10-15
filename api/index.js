@@ -1,7 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import 'dotenv/config'
-import userRoute from './routes/user.route.js'
+import userRoute from './routes/userRoute.js'
+import authRoute from './routes/authRoute.js'
 
 mongoose.connect(process.env.MONGO_CONNECTION_URL)
     .then(() => {
@@ -15,7 +16,8 @@ mongoose.connect(process.env.MONGO_CONNECTION_URL)
 
 const app = express()
 
- 
+app.use(express.json())
 
 app.use('/api/user',  userRoute)
+app.use('/api/auth',  authRoute)
 
