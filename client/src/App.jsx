@@ -6,6 +6,7 @@ import Profile from "./pages/Profile"
 import About from "./pages/about"
 import Header from "./components/Header"
 import PrivateRoute from "./components/PrivateRoute"
+import Footer from "./components/Footer"
 
 export default function App() {
   return  (
@@ -19,7 +20,8 @@ export default function App() {
     <Route element={<PrivateRoute />} >    
       <Route path="/profile" element={<Profile />} />
     </Route>
-  </Routes>
+    </Routes>
+    <Footer />
   </BrowserRouter>
   )
  
