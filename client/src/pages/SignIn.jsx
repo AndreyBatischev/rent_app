@@ -48,7 +48,7 @@ const handleSubmit = async (e) => {
 
         <button disable={loading ? 'true' : 'false'} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95  disabled:opacity-70'>
            {loading ? 'Loading...' : 'Sign in'}
-          </button>
+        </button>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Don`t have account?</p>

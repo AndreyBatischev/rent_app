@@ -1,5 +1,6 @@
 import {Link, useNavigate} from "react-router-dom"
-import {useState} from 'react'
+import { useState } from 'react'
+
 
 export default function SignUp() {
 const [formData, setFormData] = useState({})
@@ -50,7 +51,7 @@ try {
 
         <button disable={loading ? 'true' : 'false'} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95  disabled:opacity-70'>
            {loading ? 'Loading...' : 'Sign up'}
-          </button>
+        </button>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have  an account?</p>
