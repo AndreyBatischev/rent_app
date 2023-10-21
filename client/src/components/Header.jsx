@@ -29,7 +29,9 @@ export default function Header() {
                 {currentUser
                 ? (
                     <Link to="/profile">
-                        <li className=' sm:inline text-slate-700 hover:underline'>Profile</li>
+                              <li className=' sm:inline text-slate-700 hover:underline'>
+                                  <img src={currentUser.avatar} alt=""  className='rounded-full h-7 w-7 object-cover cursor-pointer self-center '/>
+                        </li>
                     </Link>
                   )
                 : (
