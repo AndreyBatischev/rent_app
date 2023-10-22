@@ -1,9 +1,9 @@
 import {useRef,useState, useEffect} from 'react'
 import { useSelector  } from 'react-redux'
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage'
+import { app } from '../firebase.js'
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure, signOutUserSuccess } from '../redux/user/userSlice.js'
 import { useDispatch } from 'react-redux'
-import { app } from '../firebase.js'
 import { Link } from 'react-router-dom'
 
 const defaultAvatar = 'https://firebasestorage.googleapis.com/v0/b/upload-img-plagin.appspot.com/o/avatars%2Fvector-users-icon.jpg?alt=media&token=f2bb9718-e195-40d3-9bd4-c7df3ad297c4&_gl=1*c978vh*_ga*MjEyMDc2NTUwNS4xNjkzMDY1NzEx*_ga_CW55HF8NVT*MTY5NzgyMTM0My4xMC4xLjE2OTc4MjU4NTMuNDkuMC4w'
