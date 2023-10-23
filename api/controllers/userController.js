@@ -1,3 +1,4 @@
+import Listing from "../models/listingModel.js"
 import User from "../models/userModel.js"
 import { errorHandler } from "../utils/error.js"
 import bcryptjs from 'bcryptjs'
@@ -8,7 +9,7 @@ export const test = (req, res) => {
 
 export const updateUser = async (req, res, next) => {
     const { username, email, avatar } = req.body
-    if (req.user.id !== req.params.id) return next(errorHandler(401, 'Access dinied'))
+    if (req.user.id !== req.params.id) return next(errorHandler(401, 'Access to update user dinied'))
     try {
         if (req.body.password) {
             req.body.password = bcryptjs.hashSync(req.body.password, 10)
@@ -32,7 +33,7 @@ export const updateUser = async (req, res, next) => {
 }
 
 export const deleteUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id) return next(errorHandler(401, 'Access dinied'))
+    if (req.user.id !== req.params.id) return next(errorHandler(401, 'Access to delete user dinied'))
 
     try {
         const deleteProfile = await User.findByIdAndDelete(req.params.id)
@@ -41,4 +42,19 @@ export const deleteUser = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+export const getUserListings = async (req, res, next) => {
+
+    if (req.user.id === req.params.id) {
+        try {
+            const listings = await Listing.find({ userRef: req.params.id })
+            res.status(200).json(listings)
+        } catch (error) {
+            next(error)
+        }
+    } else {
+        return next(errorHandler(401, 'Access to listings dinied'))
+    }
+
 }
