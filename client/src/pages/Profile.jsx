@@ -32,6 +32,8 @@ export default function Profile() {
 	const [fileUploadError, setFileUploadError] = useState(false)
 	const [formData, setFormData] = useState({})
 	const [updateSuccess, setUpdateSuccess] = useState(false)
+	const [showListingError, setShowListingError] = useState(false)
+	const [userListing, setUserListing] = useState(false)
 
 	const dispatch = useDispatch()
 
@@ -132,6 +134,23 @@ export default function Profile() {
 		}
 	}
 
+	const handleShowListing = async () => {
+		try {
+			setShowListingError(false)
+			const res = await fetch(`/api/user/listings/${currentUser._id}`)
+
+			const data = await res.json()
+			if (data.success === false) {
+				setShowListingError(true)
+				return
+			}
+
+			setUserListing(data)
+		} catch (error) {
+			setShowListingError(true)
+		}
+	}
+
 	return (
 		<div className="p-3 max-w-lg mx-auto">
 			<h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -219,6 +238,55 @@ export default function Profile() {
 			<p className="text-green-700 mt-5">
 				{updateSuccess ? 'Update success' : ''}
 			</p>
+			<button
+				onClick={handleShowListing}
+				type="button"
+				className="text-green-700"
+			>
+				Show listing
+			</button>
+			<p className="text-red-700 mt-5">
+				{showListingError ? 'Error showing listing' : ''}
+			</p>
+
+			{userListing && userListing.length > 0 && (
+				<div className="gap-4 flex flex-col">
+					<h2 className="text-center mt-7 text-2xl font-semibold">
+						Your listing
+					</h2>
+					{userListing.map((listing) => (
+						<div
+							key={listing._id}
+							className="flex border rounded-lg p-3 gap-4 justify-between items-center"
+						>
+							<Link to={`/listing/${listing._id}`}>
+								<img
+									src={listing.imageUrls[0]}
+									alt="listing"
+									className="h-16 w-16 object-contain "
+								/>
+							</Link>
+							<Link
+								className="flex-1 text-slate-700 font-semibold  hover:underline truncate"
+								to={`/listing/${listing._id}`}
+							>
+								<p>{listing.name}</p>
+							</Link>
+							<div className="flex flex-col">
+								<button type="button" className="text-red-700">
+									Delete
+								</button>
+								<button
+									type="button"
+									className="text-green-700"
+								>
+									Edit
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
