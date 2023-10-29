@@ -117,6 +117,7 @@ export default function Listing() {
 									$
 									{+listing.regularPrice -
 										+listing.discountPrice}
+									discount
 								</p>
 							)}
 						</div>
